@@ -116,7 +116,7 @@ def process_archive():
     def extract_in_background():
         try:
             extract_archive(archive_path, temp_path)
-            status_label.config(text="解壓縮完成！")  # 更新狀態
+            status_label.config(text="解壓縮完成！請稍候...")  # 更新狀態
             update_summary()  # 更新目錄結構
             check_single_folder()  # 檢查是否只有一個資料夾
         except Exception as e:
@@ -135,6 +135,8 @@ def update_summary():
 # 檢查第一層是否只有一個資料夾
 def check_single_folder():
     first_level_items = list(temp_path.iterdir())
+    
+    # 只有一個項目，且是資料夾
     if len(first_level_items) == 1 and first_level_items[0].is_dir():
         single_folder = first_level_items[0]
 
@@ -143,6 +145,12 @@ def check_single_folder():
         select_archive_button.grid_forget()
         yesdel_button.grid(row=3, column=0, padx=(10,200), pady=10, sticky="e")
         nodel_button.grid(row=3, column=0, padx=(200,10), pady=10, sticky="e")
+    
+    # 🆕 **新增處理：如果只有單一檔案，則直接執行 move_file()**
+    elif len(first_level_items) == 1 and first_level_items[0].is_file():
+        status_label.config(text=f"解壓縮完成！即將移動檔案")
+        root.after(2000, move_file)  # 2 秒後自動執行移動
+
 
 
 
@@ -184,12 +192,12 @@ def move_file():
             else:  # ⚡ 檔案：直接覆蓋
                 shutil.copy2(item, dst_item)
                 os.remove(item)  # 刪除來源檔案
-            
+
         except Exception as e:
             status_label.config(text=f"發生錯誤: {e}")
             return
 
-    status_label.config(text=f"移動完成, 已移動檔案至: {destination}")
+    status_label.config(text=f"移動完成到 : {destination}")
     root.after(2000, close_app)
 
 
