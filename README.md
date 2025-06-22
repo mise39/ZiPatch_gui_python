@@ -15,7 +15,9 @@
 請使用本軟體時遵守一切道德行為。  
 
 ## *如無任何反應，請為檔案加權限(用konsole輸入)  
-> chmox +x /你的檔案位置/ZiPatch_gui.sh  
+```
+chmox +x /你的檔案位置/ZiPatch_gui.sh
+```
 
 
 ## *關於Chmod not found的解決方法  
