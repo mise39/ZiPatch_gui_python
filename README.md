@@ -15,4 +15,8 @@
 
 *如無任何反應，請為兩個檔案加權限(用konsole輸入)
 chmox +x /你的檔案位置/ZiPatch_gui.sh
-chmox +x /你的檔案位置/ZiPatch_gui.py
+
+*關於Chmod not found的解決方法
+請先konsole輸入passwd設定密碼
+然後再輸入 sudo pacman -Sy coreutils
+Chmod 指令就不會報錯
